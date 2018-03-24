@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %} 
+<div id="main" class="container-fluid" style="margin-top: 50px">
+ 
+        <div id="top" class="row">
+           <div class="col-sm-3">
+               <!--<h2>Livros</h2>-->
+           </div>
+           <div class="col-sm-6">
+               
+               <!--<div class="input-group h2">
+                   <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Itens">
+                   <span class="input-group-btn">
+                       <button class="btn btn-primary" type="submit">
+                           <span class="glyphicon glyphicon-search"></span>
+                       </button>
+                   </span>
+               </div>-->
+               
+           </div>
+           <div class="col-sm-3">
+               <a href="{% url 'livro:livro-create' %}" class="btn btn-primary pull-right h2">Novo Livro</a>
+           </div>
+       </div> <!-- /#top -->
+    
+    
+        <hr />
+    <div id="list" class="row">
+        <div class="table-responsive col-md-12">
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>                
+                        <th>Autor</th>                             
+                        <th class="actions">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livro in object_list %}
+                    <tr>
+                        <td><a href="{% url 'livro:livro-update' pk=livro.pk %}"> {{ livro.nome }}</a></td>
+                        <td>{{ livro.autor }}</td>
+                        <td class="actions">
+                            <a class="btn btn-success btn-xs" href="{% url 'livro:livro-about' pk=livro.pk %}">Visualizar</a>
+                            <a class="btn btn-warning btn-xs" href="{% url 'livro:livro-update' pk=livro.pk %}">Editar</a>
+                            <a class="btn btn-danger btn-xs"  href="{% url 'livro:livro-delete' pk=livro.pk %}">Excluir</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <li>Sem livros cadastrados.</li>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            
+    </div> <!-- /#list -->
+
+    <div id="bottom" class="row">
+        <div class="col-md-12">
+            <!--<ul class="pagination">
+                {% if object_list.has_previous %}
+                    <li><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in object_list.paginator.page_range %}
+                    {% if object_list.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if object_list.has_next %}
+                    <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul><!-- /.pagination -->        
+
+            {% block pagination %}
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="page-links">
+                            {% if page_obj.has_previous %}
+                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}"> <span> << </span> </a>
+                            {% endif %}
+                            <span class="page-current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"> <span> >> </span> </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endblock %} 
+        </div>
+    </div> <!-- /#bottom -->
+</div> <!-- /#main -->
+{% endblock %}

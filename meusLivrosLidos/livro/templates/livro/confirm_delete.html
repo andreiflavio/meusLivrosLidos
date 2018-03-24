@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %}
+<div id="main" class="container-fluid">
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Deseja apagar este livro? <b>"{{ object }}"?</b></p>
+        <input type="submit" value="Confirm" />
+        <a href="{% url 'livro:livro-update' pk=object.pk %}" class="btn btn-default">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

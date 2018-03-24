@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %} 
+<div id="main" class="container-fluid">
+    <h3 class="page-header">Livro: {{ livro.nome }}</h3>
+    
+    <div class="row">        
+        <div class="col-md-4">
+        <p><strong>Autor:</strong></p>
+            <p>{{ livro.autor }}</p>
+        </div>
+        
+        <div class="col-md-4">
+        <p><strong>Série:</strong></p>
+            <p>{{ livro.serie }}</p>
+        </div>
+    
+        <div class="col-md-4">
+        <p><strong>Número de páginas:</strong></p>
+            <p> {{ livro.num_paginas }}</p>
+        </div>
+        
+        <div class="col-md-4">
+        <p><strong>Começou em:</strong></p>
+            <p>{{ livro.inicio }}</p>
+        </div>
+        
+        <div class="col-md-4">
+        <p><strong>Terminou em:</strong></p>
+            <p>{{ livro.fim }}</p>
+        </div>
+        
+        <div class="col-md-4">
+        <p><strong>Nota:</strong></p>
+            <p>{{ livro.nota }}</p>
+        </div>
+        
+        <div class="col-md-4">
+        <p><strong>É e-book?</strong></p>
+            <p>{{ livro.ebook }}</p>
+        </div>
+    </div>
+    
+    <hr />
+    <div id="actions" class="row">
+        <div class="col-md-12">
+        <a href="{% url 'livro:livro-list' %}" class="btn btn-primary">Fechar</a>        
+        <a href="{% url 'livro:livro-update' pk=livro.pk %}" class="btn btn-default">Editar</a>
+        <a href="{% url 'livro:livro-delete' pk=livro.pk %}" class="btn btn-default">Excluir</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn meusLivrosLidos.wsgi --log-file -

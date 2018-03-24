@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block container %}
+<div id="main" class="container-fluid">
+    <h2></h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-12">            
+                <label for="id_nome">{{ form.username.label }}:</label>
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">            
+                <label for="id_nome">{{ form.password.label }}:</label>
+                {{ form.password }}
+            </div>
+        </div>
+        <button type="submit">Login</button>
+        <a class="btn btn-success btn-xs" href="{% url 'accounts:signup' %}">Cadastrar</a>
+    </form>
+</div>
+{% endblock %}
