@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',    
-    'django.contrib.staticfiles',       
+    'django.contrib.staticfiles',
+    'storages',       
     'meusLivrosLidos.livro',
     'meusLivrosLidos.accounts',
 ]
@@ -73,6 +74,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meusLivrosLidos.wsgi.application'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meusLivrosLidos', 'media')
+MEDIA_URL = '/media/'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -95,10 +103,48 @@ if DEBUG:
             'PORT': config('DB_PORT'),
         },
     }
+
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'    
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = [
+        os.path.join(PROJECT_ROOT, 'static'),
+    ]
+
 else:
     DATABASES = {
         'default':  dj_database_url.config(conn_max_age=500, ssl_require=True),
+    }    
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'meusLivrosLidos/static'),
+    ]
+
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
     }
+    
+    AWS_STATIC_LOCATION = 'static'
+
+    STATICFILES_STORAGE = 'meusLivrosLidos.storage_backends.StaticStorage'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)    
+
+    AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+    DEFAULT_FILE_STORAGE = 'meusLivrosLidos.storage_backends.PublicMediaStorage'  
+
+    AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
+    PRIVATE_FILE_STORAGE = 'meusLivrosLidos.storage_backends.PrivateMediaStorage'
 
 
 # Password validation
@@ -142,20 +188,6 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'static'),
-]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'meusLivrosLidos', 'media')
-
-MEDIA_URL = '/media/'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals(), staticfiles=False)
