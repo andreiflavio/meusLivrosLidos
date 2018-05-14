@@ -104,10 +104,6 @@ if DEBUG:
         },
     }
 
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'    

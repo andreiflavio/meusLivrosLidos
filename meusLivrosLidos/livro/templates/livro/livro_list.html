@@ -28,35 +28,24 @@
     
     
         <hr />
-    <div id="list" class="row">
-        <div class="table-responsive col-md-12">
-            <table class="table table-striped" cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th>Nome</th>                
-                        <th>Autor</th>                             
-                        <th class="actions">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for livro in object_list %}
-                    <tr>
-                        <td><a href="{% url 'livro:livro-update' pk=livro.pk %}"> {{ livro.nome }}</a></td>
-                        <td>{{ livro.autor }}</td>
-                        <td class="actions">
-                            <a class="btn btn-success btn-xs" href="{% url 'livro:livro-about' pk=livro.pk %}">Visualizar</a>
-                            <a class="btn btn-warning btn-xs" href="{% url 'livro:livro-update' pk=livro.pk %}">Editar</a>
-                            <a class="btn btn-danger btn-xs"  href="{% url 'livro:livro-delete' pk=livro.pk %}">Excluir</a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                        <li>Sem livros cadastrados.</li>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-            
-    </div> <!-- /#list -->
+        
+    <div id="list-card-view" class="row">
+        {% for livro in object_list %}
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'livro:livro-update' pk=livro.pk %}"> Livro: {{ livro.nome }}</a></h5>
+                    <p class="card-text">Autor: {{ livro.autor }}</p>
+                    <a class="btn btn-success btn-xs" href="{% url 'livro:livro-about' pk=livro.pk %}">Visualizar</a>
+                    <a class="btn btn-warning btn-xs" href="{% url 'livro:livro-update' pk=livro.pk %}">Editar</a>
+                    <a class="btn btn-danger btn-xs"  href="{% url 'livro:livro-delete' pk=livro.pk %}">Excluir</a>
+                </div>
+            </div>
+        </div>        
+        {% empty %}
+            <li>Sem livros cadastrados.</li>
+        {% endfor %}
+    </div>
 
     <div id="bottom" class="row">
         <div class="col-md-12">

@@ -36,6 +36,7 @@ class Livro(models.Model):
         blank=True,
         null=True)
     ebook = models.BooleanField("É um ebook")
+    obs = models.TextField("Impressões", null=True, blank=True)
 
     class Meta:
         ordering = ['inicio']

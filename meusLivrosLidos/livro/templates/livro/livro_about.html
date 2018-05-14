@@ -38,15 +38,20 @@
         <p><strong>Nota:</strong></p>
             <p>{{ livro.nota|default_if_none:"&nbsp;" }}</p>
         </div>
-        
+
         <div class="col-md-4">
+                <p><strong>Impressões:</strong></p>
+                    <p>{{ livro.obs|default_if_none:"&nbsp;" }}</p>
+                </div>
+        
+        <!--<div class="col-md-4">
         <p><strong>É e-book?</strong></p>
             {% if livro.ebook %}
                 <p>Sim</p>
             {% else %}
                 <p>Não</p>
             {% endif %}            
-        </div>
+        </div>-->
     </div>
     
     <hr />

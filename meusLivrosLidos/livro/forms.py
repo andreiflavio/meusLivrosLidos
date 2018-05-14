@@ -19,7 +19,8 @@ class LivroForm(forms.ModelForm):
             'inicio',
             'fim',
             'nota',
-            'ebook']
+            'ebook', 
+            'obs']
         widgets = {
             'inicio': forms.DateInput(),
             'fim': forms.DateInput(),
