@@ -5,6 +5,6 @@ __pycache__
 db.sqlite3
 util
 .env
-static
-staticfiles
+#static
+#staticfiles
 Anotações.txt

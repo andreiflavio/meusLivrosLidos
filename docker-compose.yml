@@ -1,0 +1,34 @@
+version: '3.3'
+
+volumes:
+    db-data:
+      
+services:
+  # Postgres
+  db:
+    image: postgres
+    ports:
+      - "57002:5432"
+    environment:
+      - POSTGRES_USER=meuslivroslidos
+      - POSTGRES_PASSWORD=meuslivroslidos
+      - POSTGRES_DB=meuslivroslidos              
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./containers/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+
+  web:
+    build: .    
+    volumes:
+      - .:/webapps
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    depends_on:
+      - db
+

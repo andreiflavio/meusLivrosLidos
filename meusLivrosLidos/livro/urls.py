@@ -15,5 +15,5 @@ urlpatterns = [
     path('about/<int:pk>', login_required(LivroAboutView.as_view()), name='livro-about'),
     path('create', login_required(LivroCreate.as_view()), name='livro-create'),
     path('update/<int:pk>', login_required(LivroUpdate.as_view()), name='livro-update'),
-    path('delete/<int:pk>', login_required(LivroDelete.as_view()), name='livro-delete'),
+    path('delete/<int:pk>', login_required(LivroDelete.as_view()), name='livro-delete'),        
 ]

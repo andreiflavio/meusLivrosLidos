@@ -20,7 +20,8 @@ from meusLivrosLidos import settings
 
 urlpatterns = [
     path('', include('meusLivrosLidos.accounts.urls')),
-    path('livro/', include('meusLivrosLidos.livro.urls')),    
+    path('livro/', include('meusLivrosLidos.livro.urls')),
+    path('api/', include('meusLivrosLidos.api.urls')),
     path('admin/', admin.site.urls),    
 ]
 
