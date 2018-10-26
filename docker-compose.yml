@@ -20,15 +20,41 @@ services:
       driver: "json-file"
       options:
         max-size: "100m"
+  
+  redis:
+    image: redis:3.2
 
   web:
-    build: .    
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000    
     volumes:
       - .:/webapps
     ports:
       - "8000:8000"
+    environment:
+      - DEBUG=False
     links:
       - db
     depends_on:
       - db
+      - redis
+  
+  celery:
+    build: .
+    container_name: celery
+    command: celery --app=meusLivrosLidos worker --loglevel=INFO
+    volumes:
+      - ..:/src
+    links:
+      - db
+      - redis
+  
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
+  
+
+# A montagem deste docker-compose foi com base no django-cookiecutter

@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import dj_database_url
 import django_heroku
+from datetime import timedelta
 from decouple import config
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +29,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'x*gtpm4n+g-&_f!0ud%7^&ase8+*3(d(a*w_s0y1f%p(wxmjiu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.getenv('DEBUG')
 
 CORS_ORIGIN_ALLOW_ALL=True
 CORS_ALLOW_CREDENTIALS = True
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework',
     'corsheaders',
+    'celery',
     'meusLivrosLidos.core',
     'meusLivrosLidos.livro',
     'meusLivrosLidos.accounts',
@@ -196,8 +199,8 @@ ALLOWED_HOSTS = ['*']
 # Activate Django-Heroku.
 django_heroku.settings(locals(), staticfiles=False)
 
-from datetime import timedelta
 
+#Configs JWT
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -213,6 +216,29 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': timedelta(days=2),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'meusLivrosLidos.core.utils.jwt_response_payload_handler',
 }
 
+#Configs e-mail
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=os.getenv('EMAIL_HOST_PASSWORD'))
+SENDGRID_API_KEY = config('SENDGRID_API_KEY', default=os.getenv('SENDGRID_API_KEY'))
+SENDGRID_SANDBOX_MODE_IN_DEBUG = DEBUG
 
+if DEBUG:
+    EMAIL_HOST = 'mailhog'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_SSL = False
+    EMAIL_PORT = 1025
+else:
+    EMAIL_HOST='smtp.sendgrid.net'
+    EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+    EMAIL_USE_TLS=True
+    EMAIL_PORT = 587
+
+BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
