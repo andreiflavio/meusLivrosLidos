@@ -3,7 +3,6 @@ from meusLivrosLidos.livro.models import Livro
 from django.contrib.auth.models import User
 
 
-
 class LivroSerializer(serializers.ModelSerializer):
 	
 	def create(self, validated_data):		

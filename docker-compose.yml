@@ -32,12 +32,13 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DEBUG=False
+      - DEBUG=True
     links:
       - db
     depends_on:
       - db
       - redis
+      - mailhog
   
   celery:
     build: .

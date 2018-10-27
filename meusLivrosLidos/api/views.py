@@ -9,7 +9,7 @@ from meusLivrosLidos.livro.models import Livro
 class LivroAPIViewSet(ModelViewSet):	
     serializer_class = LivroSerializer
 
-    def get_queryset(self):
+    def get_queryset(self):    	
     	return Livro.objects.filter(user=self.request.user).order_by('-data_cadastro')
     
 
