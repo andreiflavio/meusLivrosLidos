@@ -26,7 +26,7 @@ Para executar o projeto:
 
 * ip addr (este comando permite verificar qual é o ip do container onde a aplicação django está sendo executada. Tal informação será útil para acessar sistema nos próximos passos)
 
-* python manage.py runserver 0.0.0.0:8000 (O ip 0.0.0.0 serve para indicar ao django que qualquer chamada feita contra a porta 8000 do container deverá dar acesso ao django)
+* python manage.py runserver 0.0.0.0:8000 (O ip 0.0.0.0 serve para indicar que qualquer chamada feita contra a porta 8000 do container deverá dar acesso ao django)
 
 Feito isso basta acessar sistema utilizando o ip indicado via ip addr:porta desejada
 
