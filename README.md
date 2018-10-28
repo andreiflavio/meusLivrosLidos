@@ -14,8 +14,8 @@ Para montar ambiente basta:
 
 * git clone https://github.com/andreiflavio/meusLivrosLidos.git
 
-<h3> Criar arquivo .env na raiz do projeto com as variáveis:
-DB_NAME = meusDB_NAME='meuslivroslidos'
+<h3> Criar arquivo .env na raiz do projeto (mesma pasta onde se encontra arquivo manage.py) com as variáveis:</h3>
+DB_NAME='meuslivroslidos'
 DB_USER='meuslivroslidos'
 DB_PASSWORD='meuslivroslidos'
 DB_HOST='db'
@@ -35,7 +35,7 @@ Para executar o projeto:
 
 * python manage.py runserver 0.0.0.0:8000 (O ip 0.0.0.0 serve para indicar que qualquer chamada feita contra a porta 8000 do container deverá dar acesso ao django)
 
-Feito isso basta acessar sistema utilizando o ip indicado via ip addr:porta desejada
+Feito isso basta acessar sistema utilizando o ip indicado via ip addr:porta desejada (Exemplo: 172.0.3.21:8000)
 
 Obs.2: Sou novo no universo docker então creio que as explicações dos comandos careçam de melhorias que vou providenciá-las logo.
 
