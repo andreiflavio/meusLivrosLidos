@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import TemplateView
+from django.db.models import Q
 from .models import Livro
 from .forms import LivroForm
 
@@ -14,7 +15,7 @@ class LivroListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+        return self.model.objects.filter(user=self.request.user).order_by('-inicio')
 
 
 class LivroAboutView(TemplateView):
