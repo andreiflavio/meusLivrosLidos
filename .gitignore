@@ -8,3 +8,4 @@ util
 #static
 #staticfiles
 Anotações.txt
+*.py.swp

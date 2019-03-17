@@ -1,0 +1,38 @@
+-> Listagem de Livros Tarefa #16
+	|_ Fazer pesquisa funcionar (testar e commitar)
+	|_ Exibir dados de usuario (ver porque o payload do JWT não retorna meus dados de usuario)
+	|_ Ajustar infinitescroll
+	|_ Implementar lógica para preencher o campo nota (as estrelinhas)
+	|_ Formatação de datas vindas do backend
+
+-> Instalar Ngrok para testes no celular
+-> Análise contínuas no Lighthouse
+
+-> Cadastro de Livros/Edição de Livros Tarefa #16
+-> Edição de usuário (sem alteração de senha e envio de imagem) Tarefa #16
+-> PWA Let's encript
+-> Subir nova aplicação 
+-> Tutorial sobre como montar ambiente para rodar o Angular (dependência do repositório Django)
+-> Post no site sobre nova versão utilizando Angular
+-> Tela para indicar quantos livros foram lidos organizados por ano
+
+-> Criar Issues para as tarefas abaixo
+-> Criar Model de usuário customizado
+-> Fazer teste do backup da base do servidor, restaurando localmente para testar compatibilidade do User antigo com o novo)
+-> Fazer novo backup da base do livros lidos
+-> Limpar base do heroku
+-> rodar migrations
+-> restaurar backup
+-> Documentação da API Swagger
+-> Post sobre uso do docker no projeto
+-> Cadastro de usuário com validação via e-mail (Django). Tem que fazer o celery funcionar corretamente
+-> Troca de senha de usuário utilizando e-mail
+-> Upload de imagem na edição de usuário
+-> Post no site sobre 
+-> Push notiications PWA (SwPush)
+-> Leitura de dados de um livro via qrcode
+
+------------------FEITO-------------------
+-> Validar funcionamento da versão fullstack
+-> Login Tarefa #16
+-> Criar repositório para o código Angular
